@@ -80,7 +80,7 @@ class HBNBCommand(cmd.Cmd):
             return False
         elif command[0] not in classes:
             print("** class doesn't exist **")
-        elif: len(command) < 2:
+        elif len(command) < 2:
             print("** instance id missing **")
         else:
             new_instance = command[0] + '.' + command[1]
@@ -111,7 +111,7 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self):
         """Update command: an instance based on the class name and id"""
         command = split(line)
-        
+
         if not command:
             print("** class name missing **")
         elif command[0] not in classes:
