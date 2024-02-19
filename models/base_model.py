@@ -8,8 +8,7 @@ class BaseModel():
     """
     Defines all common attributes/methods for other classes
     """
-    
-     def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
             from models import storage
@@ -53,7 +52,6 @@ class BaseModel():
         """
         from models import storage
         self.updated_at = datetime.now()
-        storage.new(self)
         storage.save()
 
     def to_dict(self):
@@ -64,7 +62,7 @@ class BaseModel():
             if key == "_sa_instance_state":
                 del (dictionary[key])
 
-        dictionary.update({'__class__': self.__class__.__name__})
+        dictionary.update['__class__'] = type(self).__name__
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
         
