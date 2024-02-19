@@ -31,10 +31,8 @@ class FileStorage:
         return filtered_obj
 
     def new(self, obj):
-        """
-        Adds new object to storage dictionary
-        """
-       self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
+        """Adds new object to storage dictionary"""
+        self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
 
     def delete(self, obj=None):
         """Deletes obj from objects"""
