@@ -5,7 +5,7 @@ Contains the file_storage class model
 
 
 import json
-import models
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -53,7 +53,6 @@ class FileStorage:
 
     def reload(self):
         """Loads storage dictionary from file"""
-        from models.base_model import BaseModel
         from models.user import User
         from models.place import Place
         from models.state import State
