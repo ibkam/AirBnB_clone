@@ -41,18 +41,15 @@ class FileStorage:
             if key in self.__objects:
                 del self.__objects[key]
                 self.save()
-
-
+                
     def save(self):
-        """
-        serializes __objects to the JSON file
-        """
-        serialized_objects = {}
-        for key, val in self.__objects.items():
-            serialized_objects[key] = val.to_dict()
-
-        with open(self.__file_path, 'w') as file:
-            json.dump(serialized_objects, file)
+        """Saves storage dictionary to file"""
+        with open(FileStorage.__file_path, 'w') as f:
+            temp = {}
+            temp.update(FileStorage.__objects)
+            for key, val in temp.items():
+                temp[key] = val.to_dict()
+            json.dump(temp, f)
 
     def reload(self):
         """Loads storage dictionary from file"""
