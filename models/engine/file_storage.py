@@ -17,19 +17,33 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self):
+    def all(self, cls=None):
         """
         Returns the dictionary __objects
         """
-        return self.__objects
+        if cls is not None:
+            return self.__objects
+        else:
+            filtered_obj = {}
+            for key, value in self.__objects.items():
+                if type(value) == cls:
+                    filtered_obj[key] = value
+        return filtered_obj
 
     def new(self, obj):
         """
-        sets in __objects the 'obj'
-        with key <obj class name>.id
+        Adds new object to storage dictionary
         """
-        key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+       self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
+
+    def delete(self, obj=None):
+        """Deletes obj from objects"""
+        if obj is not None:
+            key = key = obj.__class__.__name__ + "." + obj.id
+            if key in self.__objects:
+                del self.__objects[key]
+                self.save()
+
 
     def save(self):
         """
@@ -48,8 +62,10 @@ class FileStorage:
                 self.__objects = json.load(file)
 
             for key, val in self.__objects.items():
-                class_name = val["__class__"]
-                class_name = models.classes[class_name]
-                self.__objects[key] = class_name(**val)
+                self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+            
+    def close(self):
+        """Deserialize the JSON file to objects"""
+        self.reload()
