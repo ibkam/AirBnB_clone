@@ -63,7 +63,7 @@ class BaseModel():
             if key == "_sa_instance_state":
                 del (dictionary[key])
 
-        dictionary.update['__class__'] = type(self).__name__
+        dictionary.update({'__class__': self.__class__.__name__})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
         
