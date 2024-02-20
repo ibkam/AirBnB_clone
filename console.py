@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" Console Module """
+""" 
+Console Module that contains the entry point of the command interpreter:
+"""
 import cmd
 import sys
 from models.base_model import BaseModel
